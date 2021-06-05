@@ -33,7 +33,7 @@ class SessionBasketTest {
         assertThat(basketItems).hasSize(1)
                 .first()
                 .matches(b->b.getQty().equals(2));
-        sessionBasket.removeItem("abc");
+        sessionBasket.removeAllItems("abc");
         final List<BasketItem> items = sessionBasket.getBasketItems();
         assertThat(items).isEmpty();
     }

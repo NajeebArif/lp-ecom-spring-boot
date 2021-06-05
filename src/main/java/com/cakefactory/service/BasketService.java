@@ -12,5 +12,7 @@ public interface BasketService {
 
     List<BasketItem> getBasketItems();
 
-    void removeItem(String sku);
+    void removeAllItems(String sku);
+
+    void removeSingleItem(String sku);
 }

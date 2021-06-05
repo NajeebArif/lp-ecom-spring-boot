@@ -6,17 +6,13 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
@@ -38,7 +34,7 @@ class BasketControllerTest {
     @BeforeEach
     public void init(){
         given(basketService.getCapacity()).willReturn(2);
-        willDoNothing().given(basketService).removeItem(anyString());
+        willDoNothing().given(basketService).removeAllItems(anyString());
     }
 
     @Test
@@ -47,7 +43,7 @@ class BasketControllerTest {
         mockMvc.perform(post("/basket/delete").param("sku","sku"))
                 .andExpect(redirectedUrl("/basket"))
                 .andExpect(status().is3xxRedirection());
-        verify(basketService).removeItem("sku");
+        verify(basketService).removeAllItems("sku");
     }
 
     @Test

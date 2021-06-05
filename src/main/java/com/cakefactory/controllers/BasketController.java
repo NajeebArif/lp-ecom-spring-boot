@@ -37,7 +37,7 @@ public class BasketController {
     @PostMapping("/delete")
     public String deleteFromBasket(@RequestParam String sku){
         log.info("item with sku deleted: {}",sku);
-        basketService.removeItem(sku);
+        basketService.removeAllItems(sku);
         return "redirect:/basket";
     }
 }
