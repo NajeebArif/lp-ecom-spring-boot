@@ -7,6 +7,13 @@
         {{#basketItems}}
             <div class="card m-3 shadow rounded" style="width: 18rem;">
                 <div class="card-header">
+                    <form action="/basket/delete" method="post">
+                        <input type="hidden" name="sku" value="{{itemDto.sku}}">
+                        <button type="submit" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </form>
+
                     Basket Items
                 </div>
                 <div class="card-body">
