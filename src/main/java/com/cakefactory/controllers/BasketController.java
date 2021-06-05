@@ -22,9 +22,14 @@ public class BasketController {
 
     @PostMapping
     public String addToBasket(@RequestParam String sku){
-        log.info("add to cart clicked. SKU: {}",sku);
         basketService.addToBasket(sku);
         return "redirect:/";
+    }
+
+    @PostMapping("/add")
+    public String addSingleBasket(@RequestParam String sku){
+        basketService.addToBasket(sku);
+        return "redirect:/basket";
     }
 
     @GetMapping
@@ -38,6 +43,12 @@ public class BasketController {
     public String deleteFromBasket(@RequestParam String sku){
         log.info("item with sku deleted: {}",sku);
         basketService.removeAllItems(sku);
+        return "redirect:/basket";
+    }
+
+    @PostMapping("/delete/one")
+    public String deleteOneFromBasket(@RequestParam String sku){
+        basketService.removeSingleItem(sku);
         return "redirect:/basket";
     }
 }

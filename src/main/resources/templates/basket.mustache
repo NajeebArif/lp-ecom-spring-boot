@@ -17,7 +17,7 @@
                     Basket Items
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Item Title: {{itemDto.title}}</h5>
+                    <h5 class="card-title">{{itemDto.title}}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Quantity: {{qty}}</h6>
                     <p class="card-text">
                         Some quick Item Description can go here..
@@ -31,8 +31,12 @@
                         <span>Total Price: £{{totalPrice}}</span>
                     </div>
                     <vr />
-                    <div class="ml-auto">
-                        <form action="/basket/delete" method="post">
+                    <div class="ml-auto d-flex">
+                        <form action="/basket/add" method="post" class="mr-1">
+                            <input type="hidden" name="sku" value="{{itemDto.sku}}" />
+                            <button type="submit" class="btn fas fa-plus-square"></button>
+                        </form>
+                        <form action="/basket/delete/one" method="post">
                             <input type="hidden" name="sku" value="{{itemDto.sku}}">
                             <button type="submit" class="btn fas fa-minus-square"></button>
                         </form>

@@ -62,6 +62,12 @@ public class SessionBasket implements BasketService {
 
     @Override
     public void removeSingleItem(String sku) {
-        throw new UnsupportedOperationException();
+        final BasketItem item = basketItemMap.get(sku);
+        if(item!=null){
+            basketItemMap.remove(sku);
+            final BasketItem basketItem = new BasketItem(item.getItemDto(), item.getQty() - 1);
+            if(basketItem.getQty()>0)
+                basketItemMap.put(sku,basketItem);
+        }
     }
 }
