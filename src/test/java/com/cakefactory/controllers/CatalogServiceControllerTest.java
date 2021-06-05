@@ -1,14 +1,11 @@
 package com.cakefactory.controllers;
 
-import com.cakefactory.service.Catalog;
-import com.gargoylesoftware.htmlunit.Page;
+import com.cakefactory.service.CatalogService;
 import com.gargoylesoftware.htmlunit.WebClient;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
-import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +15,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.ui.Model;
 
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @WebMvcTest(CatalogController.class)
-class CatalogControllerTest {
+class CatalogServiceControllerTest {
 
-    private static final Logger log = LoggerFactory.getLogger(CatalogControllerTest.class);
+    private static final Logger log = LoggerFactory.getLogger(CatalogServiceControllerTest.class);
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,7 +31,7 @@ class CatalogControllerTest {
     WebClient webClient;
 
     @MockBean
-    Catalog catalog;
+    CatalogService catalogService;
 
     @BeforeEach
     void init(){
@@ -46,7 +41,7 @@ class CatalogControllerTest {
     @Test
     @DisplayName("Fetch Catalog Page")
     void displayCatalog() throws Exception {
-        BDDMockito.given(catalog.getItems()).willReturn(Collections.emptyList());
+        BDDMockito.given(catalogService.getItems()).willReturn(Collections.emptyList());
         mockMvc.perform(MockMvcRequestBuilders.get("/catalog"))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
         final var page = webClient.getPage("http://localhost");

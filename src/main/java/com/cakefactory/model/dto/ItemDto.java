@@ -1,4 +1,4 @@
-package com.cakefactory.model;
+package com.cakefactory.model.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-public class Item {
+public class ItemDto {
     private final Long id;
     private final String title;
     private final BigDecimal price;
