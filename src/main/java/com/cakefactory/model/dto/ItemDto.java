@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class ItemDto {
-    private final Long id;
+    private final String sku;
     private final String title;
     private final BigDecimal price;
 
