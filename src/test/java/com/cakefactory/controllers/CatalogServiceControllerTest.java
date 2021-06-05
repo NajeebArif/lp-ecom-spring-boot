@@ -1,7 +1,11 @@
 package com.cakefactory.controllers;
 
 import com.cakefactory.service.CatalogService;
+import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +20,10 @@ import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CatalogServiceControllerTest {
 
     private static final Logger log = LoggerFactory.getLogger(CatalogServiceControllerTest.class);
+    public static final String LOCALHOST_8080 = "http://localhost:8080";
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,6 +44,15 @@ class CatalogServiceControllerTest {
     @BeforeEach
     void init(){
         webClient = MockMvcWebClientBuilder.mockMvcSetup(mockMvc).build();
+    }
+
+    @Test
+    @DisplayName("Catalog page contains the button to add to cart")
+    public void checkAddToCartButton() throws IOException {
+        final HtmlPage page = webClient.getPage(LOCALHOST_8080);
+        final List<DomElement> buttons = page.getElementsByName("button");
+        final List<HtmlButton> collect = buttons.stream().map(b -> (HtmlButton) b).collect(Collectors.toList());
+        assertThat(collect).isNotEmpty().allMatch(b->b.getVisibleText().equalsIgnoreCase("Add"));
     }
 
     @Test
