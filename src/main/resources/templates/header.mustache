@@ -16,6 +16,10 @@
     <!-- Custom styles for this template -->
     <link href="css/shop-homepage.css" rel="stylesheet">
 
+    <base href="/"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/css/fontawesome.min.css"></link>
+    <link rel="stylesheet" href="/webjars/font-awesome/css/solid.min.css"></link>
+
 </head>
 
 <body>
@@ -37,8 +41,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
                 </li>
+
                 <li class="nav-item">
+<!--                    <i class="fas fa-shopping-cart"></i>-->
+
                     <a class="nav-link" href="/basket">
+
                     <span class="color-white">Basket: {{basketCapacity}}</span></a>
                 </li>
             </ul>

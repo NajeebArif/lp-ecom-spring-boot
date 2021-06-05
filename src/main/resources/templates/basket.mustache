@@ -26,11 +26,17 @@
                     </p>
 
                 </div>
-                <div class="card-footer">
-                    <form action="/basket/delete" method="post">
-                        <input type="hidden" name="sku" value="{{itemDto.sku}}">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
+                <div class="card-footer d-flex">
+                    <div class="mr-auto">
+                        <span>Total Price: £{{totalPrice}}</span>
+                    </div>
+                    <vr />
+                    <div class="ml-auto">
+                        <form action="/basket/delete" method="post">
+                            <input type="hidden" name="sku" value="{{itemDto.sku}}">
+                            <button type="submit" class="btn fas fa-minus-square"></button>
+                        </form>
+                    </div>
                 </div>
             </div>
         {{/basketItems}}
