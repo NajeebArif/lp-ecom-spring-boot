@@ -30,6 +30,14 @@ public class BasketController {
     @GetMapping
     public String renderBasketPage(Model model){
         model.addAttribute("basketCapacity", basketService.getCapacity());
+        model.addAttribute("basketItems", basketService.getBasketItems());
         return "basket";
+    }
+
+    @PostMapping("/delete")
+    public String deleteFromBasket(@RequestParam String sku){
+        log.info("item with sku deleted: {}",sku);
+        basketService.removeItem(sku);
+        return "redirect:/basket";
     }
 }

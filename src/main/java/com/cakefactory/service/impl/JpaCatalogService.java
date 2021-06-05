@@ -25,4 +25,11 @@ public class JpaCatalogService implements CatalogService {
                 .map(ItemMapper::mapItemToItemDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ItemDto findItemBySku(String sku) {
+        return itemsRepo.findById(sku)
+                .map(ItemMapper::mapItemToItemDto)
+                .orElseThrow(()->new RuntimeException("No Item found"));
+    }
 }

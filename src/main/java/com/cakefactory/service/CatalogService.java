@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface CatalogService {
     List<ItemDto> getItems();
+
+    ItemDto findItemBySku(String sku);
 }

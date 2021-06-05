@@ -17,6 +17,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -33,7 +37,17 @@ class BasketControllerTest {
 
     @BeforeEach
     public void init(){
-        BDDMockito.given(basketService.getCapacity()).willReturn(2);
+        given(basketService.getCapacity()).willReturn(2);
+        willDoNothing().given(basketService).removeItem(anyString());
+    }
+
+    @Test
+    @DisplayName("Given a sku to delete the item, call the service to delete item from basket")
+    public void callDelete() throws Exception{
+        mockMvc.perform(post("/basket/delete").param("sku","sku"))
+                .andExpect(redirectedUrl("/basket"))
+                .andExpect(status().is3xxRedirection());
+        verify(basketService).removeItem("sku");
     }
 
     @Test

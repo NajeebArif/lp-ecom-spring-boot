@@ -3,5 +3,31 @@
 <div class="container">
     <h1>Your Basket</h1>
     <p>Current basket capacity: {{basketCapacity}}</p>
+    <div id="basket-content" class="d-flex border rounded">
+        {{#basketItems}}
+            <div class="card m-3 shadow rounded" style="width: 18rem;">
+                <div class="card-header">
+                    Basket Items
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Item Title: {{itemDto.title}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Quantity: {{qty}}</h6>
+                    <p class="card-text">
+                        Some quick Item Description can go here..
+                        <hr />
+                        Unit Price: £{{itemDto.price}}
+                    </p>
+
+                </div>
+                <div class="card-footer">
+                    <form action="/basket/delete" method="post">
+                        <input type="hidden" name="sku" value="{{itemDto.sku}}">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        {{/basketItems}}
+    </div>
 </div>
+
 {{>footer}}
