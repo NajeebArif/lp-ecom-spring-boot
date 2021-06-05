@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-@RequestMapping("/catalog")
 public class CatalogController {
 
     private final Catalog catalog;
@@ -18,11 +17,11 @@ public class CatalogController {
         this.catalog = catalog;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public String displayCatalog(Model model){
         final var items = catalog.getItems();
         model.addAttribute("items", items);
-        return "catalogPage";
+        return "catalog";
     }
 
 }

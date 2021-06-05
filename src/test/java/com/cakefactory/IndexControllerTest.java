@@ -20,7 +20,7 @@ class IndexControllerTest {
 	@Test
 	@DisplayName("index page returns the landing page")
 	void returnsLandingPage() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/home"))
 		.andExpect(MockMvcResultMatchers.status().isOk())
 		.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Cake Factory")));
 	}
