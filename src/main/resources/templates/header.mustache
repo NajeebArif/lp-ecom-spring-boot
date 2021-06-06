@@ -48,7 +48,12 @@
                 {{^loggedInUser}}
                     <li class="nav-item">
                         <a class="nav-link" href="/users/signup">
-                            <span class="color-white">Signup</span>
+                            <i class="fas fa-user-plus"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/login">
+                            <i class="fas fa-sign-in-alt"></i>
                         </a>
                     </li>
                 {{/loggedInUser}}
@@ -56,7 +61,10 @@
                     {{#basketCapacity}}
                         <li class="nav-item">
                             <a class="nav-link" href="/basket">
-                                <span class="color-white">Basket: {{basketCapacity}}</span>
+<!--                                <span class="color-white">Basket: {{basketCapacity}}</span>-->
+                                <i class="fas fa-cart-plus">
+                                    <span class="badge badge-light">{{basketCapacity}}</span>
+                                </i>
                             </a>
                         </li>
                     {{/basketCapacity}}

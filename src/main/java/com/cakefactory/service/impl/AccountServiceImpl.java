@@ -38,6 +38,17 @@ public class AccountServiceImpl implements AccountService {
         return loggedInUser;
     }
 
+    @Override
+    public UserDto logIn(String email, String password) {
+        loggedInUser = userRepo.findByEmail(email).map(this::mapToUserDto).orElseThrow(() -> new RuntimeException("Invalid Credentials"));
+        return loggedInUser;
+    }
+
+    @Override
+    public void logout() {
+        loggedInUser = null;
+    }
+
     private UserDto mapToUserDto(User savedUser) {
         return UserDto.builder()
                 .userName(savedUser.getUsername())

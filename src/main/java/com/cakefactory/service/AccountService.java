@@ -7,4 +7,8 @@ public interface AccountService {
     UserDto registerUser(UserDto userDto);
 
     UserDto getLoggedInUser();
+
+    UserDto logIn(String email, String password);
+
+    void logout();
 }

@@ -1,5 +1,6 @@
 package com.cakefactory.controllers;
 
+import com.cakefactory.service.AccountService;
 import com.cakefactory.service.BasketService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,9 +16,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BasketController {
 
     private final BasketService basketService;
+    private final AccountService accountService;
 
-    public BasketController(BasketService basketService) {
+    public BasketController(BasketService basketService, AccountService accountService) {
         this.basketService = basketService;
+        this.accountService = accountService;
+    }
+
+    @GetMapping
+    public String renderBasketPage(Model model){
+        model.addAttribute("basketCapacity", basketService.getCapacity());
+        model.addAttribute("basketItems", basketService.getBasketItems());
+        model.addAttribute("loggedInUser", accountService.getLoggedInUser());
+        return "basket";
     }
 
     @PostMapping
@@ -30,13 +41,6 @@ public class BasketController {
     public String addSingleBasket(@RequestParam String sku){
         basketService.addToBasket(sku);
         return "redirect:/basket";
-    }
-
-    @GetMapping
-    public String renderBasketPage(Model model){
-        model.addAttribute("basketCapacity", basketService.getCapacity());
-        model.addAttribute("basketItems", basketService.getBasketItems());
-        return "basket";
     }
 
     @PostMapping("/delete")

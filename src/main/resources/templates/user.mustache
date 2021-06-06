@@ -1,0 +1,15 @@
+{{>header}}
+
+<div class="container-fluid">
+    {{#loggedInUser}}
+        <div class="card w-50">
+            <h5 class="card-title">Mr. {{firstName}} {{lastName}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{email}}</h6>
+            <p class="card-text text-wrap">Welcome to the profile page. Here you can change to address, personal information or you can also add more address.</p>
+            {{>user-update}}
+        </div>
+    {{/loggedInUser}}
+</div>
+
+
+{{>footer}}

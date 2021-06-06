@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/users")
 @Slf4j
@@ -18,9 +20,32 @@ public class UserController {
         this.accountService = accountService;
     }
 
+    @GetMapping
+    public String userProfile(Model model){
+        model.addAttribute("loggedInUser",accountService.getLoggedInUser());
+        return "user";
+    }
+
     @GetMapping("/signup")
     public String serverSignupPage(){
         return "signup";
+    }
+
+    @GetMapping("/login")
+    public String renderLoginPage(){
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        accountService.logout();
+        return "redirect:/";
+    }
+
+    @PostMapping("/login")
+    public String performLogin(@RequestParam String email, @RequestParam String password){
+        accountService.logIn(email, password);
+        return "redirect:/";
     }
 
 
