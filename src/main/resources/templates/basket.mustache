@@ -1,49 +1,76 @@
 {{>header}}
 
-<div class="container">
-    <h1>Your Basket</h1>
-    <p>Current basket capacity: {{basketCapacity}}</p>
-    <div id="basket-content" class="d-flex border rounded">
-        {{#basketItems}}
-            <div class="card m-3 shadow rounded" style="width: 18rem;">
-                <div class="card-header">
-                    <form action="/basket/delete" method="post">
-                        <input type="hidden" name="sku" value="{{itemDto.sku}}">
-                        <button type="submit" class="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </form>
+<div class="container-fluid">
+    <div class="row row-cols-2">
 
-                    Basket Items
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{itemDto.title}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Quantity: {{qty}}</h6>
-                    <p class="card-text">
-                        Some quick Item Description can go here..
-                        <hr />
-                        Unit Price: £{{itemDto.price}}
-                    </p>
+        <div class="col-lg-8">
+            <h3>Your have {{basketCapacity}} items in your basket</h3>
+            <div id="basket-content" class="d-flex border rounded flex-wrap m-2">
+                {{#basketItems}}
+                    <div class="card m-3 shadow rounded" style="width: 18rem;">
+                        <div class="card-header">
+                            <form action="/basket/delete" method="post">
+                                <input type="hidden" name="sku" value="{{itemDto.sku}}">
+                                <button type="submit" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </form>
 
+                            Basket Items
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{itemDto.title}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Quantity: {{qty}}</h6>
+                            <p class="card-text">
+                                Some quick Item Description can go here..
+                            <hr/>
+                            Unit Price: £{{itemDto.price}}
+                            </p>
+
+                        </div>
+                        <div class="card-footer d-flex">
+                            <div class="mr-auto">
+                                <span>Total Price: £{{totalPrice}}</span>
+                            </div>
+                            <vr/>
+                            <div class="ml-auto d-flex">
+                                <form action="/basket/add" method="post" class="mr-1">
+                                    <input type="hidden" name="sku" value="{{itemDto.sku}}"/>
+                                    <button type="submit" class="btn fas fa-plus-square"></button>
+                                </form>
+                                <form action="/basket/delete/one" method="post">
+                                    <input type="hidden" name="sku" value="{{itemDto.sku}}">
+                                    <button type="submit" class="btn fas fa-minus-square"></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {{/basketItems}}
+            </div>
+        </div>
+
+        <div class="col-lg-3 d-flex m-5 flex-column">
+            <div class="border rounded">
+                <div class="m-2">
+                    <button class="btn btn-secondary">Place Order</button>
                 </div>
-                <div class="card-footer d-flex">
-                    <div class="mr-auto">
-                        <span>Total Price: £{{totalPrice}}</span>
+                <div class="card ">
+                    <div class="card-header">
+                        Delivery Address
                     </div>
-                    <vr />
-                    <div class="ml-auto d-flex">
-                        <form action="/basket/add" method="post" class="mr-1">
-                            <input type="hidden" name="sku" value="{{itemDto.sku}}" />
-                            <button type="submit" class="btn fas fa-plus-square"></button>
-                        </form>
-                        <form action="/basket/delete/one" method="post">
-                            <input type="hidden" name="sku" value="{{itemDto.sku}}">
-                            <button type="submit" class="btn fas fa-minus-square"></button>
-                        </form>
-                    </div>
+                        <div class="card-body">
+                            <p class="text-wrap">
+                                5/158, Road Number 5, Haroon Nagar Colony Sec-II, Phulwarisharif<br>
+                                Patna, Bihar<br>
+                                801505
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-secondary">Change delivery Address</button>
+                        </div>
                 </div>
             </div>
-        {{/basketItems}}
+        </div>
     </div>
 </div>
 
