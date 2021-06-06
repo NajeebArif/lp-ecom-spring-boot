@@ -6,11 +6,16 @@ import com.cakefactory.model.entity.User;
 import com.cakefactory.repository.UserRepo;
 import com.cakefactory.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Service
 @Slf4j
+@SessionScope(proxyMode = ScopedProxyMode.INTERFACES)
 public class AccountServiceImpl implements AccountService {
+
+    private UserDto loggedInUser;
 
     private final UserRepo userRepo;
 
@@ -24,7 +29,13 @@ public class AccountServiceImpl implements AccountService {
         Address address = mapToAddress(userDto);
         user.addAddress(address);
         final User savedUser = userRepo.save(user);
-        return mapToUserDto(savedUser);
+        loggedInUser = mapToUserDto(savedUser);
+        return loggedInUser;
+    }
+
+    @Override
+    public UserDto getLoggedInUser() {
+        return loggedInUser;
     }
 
     private UserDto mapToUserDto(User savedUser) {

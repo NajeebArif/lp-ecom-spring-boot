@@ -2,11 +2,13 @@ package com.cakefactory.model.dto;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserDto {
+public class UserDto implements Serializable {
     private String firstName;
     private String lastName;
     private String userName;
