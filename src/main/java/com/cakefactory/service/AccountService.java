@@ -4,5 +4,5 @@ import com.cakefactory.model.dto.UserDto;
 
 public interface AccountService {
 
-    void registerUser(UserDto userDto);
+    UserDto registerUser(UserDto userDto);
 }

@@ -1,6 +1,8 @@
 package com.cakefactory.model.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,5 +20,7 @@ public class UserCredentials implements Serializable {
     private Boolean enabled;
     @OneToOne
     @JoinColumn(name = "email", referencedColumnName = "email", insertable = false, updatable = false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private User user;
 }

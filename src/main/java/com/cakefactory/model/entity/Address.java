@@ -1,6 +1,8 @@
 package com.cakefactory.model.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,8 +17,10 @@ public class Address implements Serializable {
     private String addressLine1;
     private String addressLine2;
     private String city;
-    private String postCode;
+    private String postcode;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private User user;
 }
