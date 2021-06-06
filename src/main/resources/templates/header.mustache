@@ -46,8 +46,9 @@
 <!--                    <i class="fas fa-shopping-cart"></i>-->
 
                     <a class="nav-link" href="/basket">
-
-                    <span class="color-white">Basket: {{basketCapacity}}</span></a>
+                        {{#basketCapacity}}
+                            <span class="color-white">Basket: {{basketCapacity}}</span></a>
+                        {{/basketCapacity}}
                 </li>
             </ul>
         </div>

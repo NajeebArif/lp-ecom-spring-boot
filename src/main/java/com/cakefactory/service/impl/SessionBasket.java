@@ -70,4 +70,9 @@ public class SessionBasket implements BasketService {
                 basketItemMap.put(sku,basketItem);
         }
     }
+
+    @Override
+    public void clear() {
+        basketItemMap.clear();
+    }
 }

@@ -15,4 +15,6 @@ public interface BasketService {
     void removeAllItems(String sku);
 
     void removeSingleItem(String sku);
+
+    void clear();
 }
