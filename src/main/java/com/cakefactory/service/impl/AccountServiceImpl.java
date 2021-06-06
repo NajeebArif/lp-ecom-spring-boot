@@ -3,12 +3,18 @@ package com.cakefactory.service.impl;
 import com.cakefactory.model.dto.UserDto;
 import com.cakefactory.model.entity.Address;
 import com.cakefactory.model.entity.User;
+import com.cakefactory.model.entity.UserAuthority;
 import com.cakefactory.repository.UserRepo;
 import com.cakefactory.service.AccountService;
+import com.cakefactory.service.UserCredentialsService;
+import com.cakefactory.utils.Mappers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
+
+import static com.cakefactory.utils.Mappers.*;
+import static com.cakefactory.utils.SecurityHelper.setSecurityContext;
 
 @Service
 @Slf4j
@@ -18,18 +24,20 @@ public class AccountServiceImpl implements AccountService {
     private UserDto loggedInUser;
 
     private final UserRepo userRepo;
+    private final UserCredentialsService userCredentialsService;
 
-    public AccountServiceImpl(UserRepo userRepo) {
+    public AccountServiceImpl(UserRepo userRepo, UserCredentialsService userCredentialsService) {
         this.userRepo = userRepo;
+        this.userCredentialsService = userCredentialsService;
     }
 
     @Override
     public UserDto registerUser(UserDto userDto) {
-        User user = mapToUser(userDto);
-        Address address = mapToAddress(userDto);
-        user.addAddress(address);
+        User user = getUser(userDto);
         final User savedUser = userRepo.save(user);
-        loggedInUser = mapToUserDto(savedUser);
+        userCredentialsService.saveUserCredentials(savedUser,userDto.getPassword());
+        loggedInUser = mapUserToUserDto(savedUser);
+        setSecurityContext(user);
         return loggedInUser;
     }
 
@@ -39,8 +47,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Deprecated
     public UserDto logIn(String email, String password) {
-        loggedInUser = userRepo.findByEmail(email).map(this::mapToUserDto).orElseThrow(() -> new RuntimeException("Invalid Credentials"));
+        loggedInUser = userRepo.findByEmail(email).map(Mappers::mapUserToUserDto).orElseThrow(() -> new RuntimeException("Invalid Credentials"));
         return loggedInUser;
     }
 
@@ -49,33 +58,21 @@ public class AccountServiceImpl implements AccountService {
         loggedInUser = null;
     }
 
-    private UserDto mapToUserDto(User savedUser) {
-        return UserDto.builder()
-                .userName(savedUser.getUsername())
-                .email(savedUser.getEmail())
-                .firstName(savedUser.getFirstName())
-                .lastName(savedUser.getLastName())
-                .phoneNumber(savedUser.getPhoneNumber())
-                .build();
-    }
-
-    private Address mapToAddress(UserDto userDto) {
-        Address address = new Address();
-        address.setAddressLine1(userDto.getAddressLine1());
-        address.setAddressLine2(userDto.getAddressLine2());
-        address.setCity(userDto.getCity());
-        address.setPostcode(userDto.getPostCode());
-        return address;
-    }
-
-    private User mapToUser(UserDto userDto) {
-        User user = new User();
-        user.setAge(userDto.getAge());
-        user.setUsername(userDto.getUserName());
-        user.setEmail(userDto.getEmail());
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setPhoneNumber(userDto.getPhoneNumber());
+    private User getUser(UserDto userDto) {
+        User user = mapUserDtoToUser(userDto);
+        Address address = mapUserDtoToAddress(userDto);
+        user.addAddress(address);
+        final UserAuthority userAuthority = getClientAuthority();
+        user.addAuthority(userAuthority);
         return user;
     }
+
+    private UserAuthority getClientAuthority() {
+        final UserAuthority userAuthority = new UserAuthority();
+        userAuthority.setAuthority("client");
+        return userAuthority;
+    }
+
+
+
 }

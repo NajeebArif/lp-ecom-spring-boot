@@ -23,12 +23,12 @@ public class User implements Serializable {
     private String username;
     private Integer age;
     private String phoneNumber;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user",fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Address> addresses = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<UserAuthority> authorities = new HashSet<>();

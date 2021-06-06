@@ -12,9 +12,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/users/login")
+        http.formLogin().loginPage("/users/login").usernameParameter("email").loginProcessingUrl("/users/login")
                 .and()
-                .logout().invalidateHttpSession(true)
+                .logout().logoutSuccessUrl("/").invalidateHttpSession(true)
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
