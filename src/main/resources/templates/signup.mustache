@@ -1,0 +1,48 @@
+{{>header}}
+
+<div class="container-fluid">
+    <h1>Signup</h1>
+    <div class="card">
+        <form action="/users/signup" method="post">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group col">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="addressLine1">Address Line 1</label>
+                        <input type="text" class="form-control" id="addressLine1" name="addressLine1">
+                    </div>
+                    <div class="form-group col">
+                        <label for="addressLine2">Address Line 2</label>
+                        <input type="text" class="form-control" id="addressLine2" name="addressLine2">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" name="city">
+                    </div>
+                    <div class="form-group col">
+                        <label for="postCode">Post Code</label>
+                        <input type="text" class="form-control" id="postCode" name="postCode">
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{{>footer}}

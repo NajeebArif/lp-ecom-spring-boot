@@ -11,10 +11,10 @@
     <title>Cake Factory - Start Bootstrap Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/shop-homepage.css" rel="stylesheet">
+    <link href="/css/shop-homepage.css" rel="stylesheet">
 
     <base href="/"/>
     <link rel="stylesheet" href="/webjars/font-awesome/css/fontawesome.min.css"></link>
@@ -28,7 +28,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Cake Factory</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -42,14 +43,27 @@
                     <a class="nav-link" href="#">About</a>
                 </li>
 
-                <li class="nav-item">
-<!--                    <i class="fas fa-shopping-cart"></i>-->
-
-                    <a class="nav-link" href="/basket">
-                        {{#basketCapacity}}
-                            <span class="color-white">Basket: {{basketCapacity}}</span></a>
-                        {{/basketCapacity}}
-                </li>
+                {{#basketCapacity}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/basket">
+                            <span class="color-white">Basket: {{basketCapacity}}</span>
+                        </a>
+                    </li>
+                {{/basketCapacity}}
+                {{^loggedInUser}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/signup">
+                            <span class="color-white">Signup</span>
+                        </a>
+                    </li>
+                {{/loggedInUser}}
+                {{#loggedInUser}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/logout">
+                            <span class="color-white">Logout</span>
+                        </a>
+                    </li>
+                {{/loggedInUser}}
             </ul>
         </div>
     </div>
