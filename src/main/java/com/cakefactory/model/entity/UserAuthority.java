@@ -11,6 +11,7 @@ public class UserAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //todo: change to enum.
     private String authority;
 
     @ManyToOne(fetch = FetchType.LAZY)
