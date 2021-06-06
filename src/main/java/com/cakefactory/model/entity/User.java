@@ -28,8 +28,18 @@ public class User implements Serializable {
     @ToString.Exclude
     private Set<Address> addresses = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<UserAuthority> authorities = new HashSet<>();
+
     public void addAddress(Address address){
         addresses.add(address);
         address.setUser(this);
+    }
+
+    public void addAuthority(UserAuthority userAuthority){
+        authorities.add(userAuthority);
+        userAuthority.setUser(this);
     }
 }
