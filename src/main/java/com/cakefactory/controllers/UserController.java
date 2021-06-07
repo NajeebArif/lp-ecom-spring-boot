@@ -22,7 +22,8 @@ public class UserController {
 
     @GetMapping
     public String userProfile(Model model){
-        model.addAttribute("loggedInUser",accountService.getLoggedInUser());
+        final UserDto loggedInUser = accountService.getLoggedInUser();
+        model.addAttribute("loggedInUser", loggedInUser);
         return "user";
     }
 
@@ -41,13 +42,6 @@ public class UserController {
         accountService.logout();
         return "redirect:/";
     }
-
-//    @PostMapping("/login")
-//    public String performLogin(@RequestParam String email, @RequestParam String password){
-//        accountService.logIn(email, password);
-//        return "redirect:/";
-//    }
-
 
     @PostMapping("/signup")
     public String signup(UserDto userDto, Model model){

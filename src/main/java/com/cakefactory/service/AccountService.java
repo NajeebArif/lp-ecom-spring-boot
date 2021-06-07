@@ -11,4 +11,6 @@ public interface AccountService {
     UserDto logIn(String email, String password);
 
     void logout();
+
+    UserDto fetchUserForEmail(String email);
 }

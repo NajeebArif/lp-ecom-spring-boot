@@ -8,10 +8,13 @@ import com.cakefactory.repository.UserRepo;
 import com.cakefactory.service.AccountService;
 import com.cakefactory.service.UserCredentialsService;
 import com.cakefactory.utils.Mappers;
+import com.cakefactory.utils.SecurityHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
+
+import java.util.Optional;
 
 import static com.cakefactory.utils.Mappers.*;
 import static com.cakefactory.utils.SecurityHelper.setSecurityContext;
@@ -43,6 +46,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public UserDto getLoggedInUser() {
+        log.info("fetching the logged in user email.");
+        final Optional<String> emailOptional = SecurityHelper.loggedInUserEmail();
+        log.info("emailOptional: {}",emailOptional.isPresent());
+        final Optional<User> user = emailOptional.map(userRepo::findByEmail).orElse(null);
+        log.info("userOptional {}",user.isPresent());
+        loggedInUser = user.map(Mappers::mapUserToUserDto).orElse(null);
+        log.info("Logged In User: {}",loggedInUser);
         return loggedInUser;
     }
 
@@ -56,6 +66,17 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void logout() {
         loggedInUser = null;
+    }
+
+    @Override
+    public UserDto fetchUserForEmail(String email) {
+        final UserDto userDto = userRepo.findByEmail(email).map(Mappers::mapUserToUserDto).orElse(UserDto.builder().email(email).build());
+        log.info(userDto.toString());
+        if(loggedInUser.equals(userDto))
+            return UserDto.builder().email(loggedInUser.getEmail()).firstName(userDto.getFirstName()).lastName(userDto.getLastName()).build();
+        else
+            loggedInUser = userDto;
+        return loggedInUser;
     }
 
     private User getUser(UserDto userDto) {

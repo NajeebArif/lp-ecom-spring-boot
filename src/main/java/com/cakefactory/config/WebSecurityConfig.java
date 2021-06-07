@@ -10,12 +10,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/users/login").usernameParameter("email").loginProcessingUrl("/users/login")
-                .and()
+        http.formLogin()
+                .loginPage("/users/login")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .loginProcessingUrl("/users/login")
+                .defaultSuccessUrl("/")
+            .and()
                 .logout().logoutSuccessUrl("/").invalidateHttpSession(true)
-                .and()
+            .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .mvcMatchers("/users/signup", "/users/login", "/", "/vendor/**", "/css/**", "/img/**", "/webjars/**").permitAll()
@@ -23,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

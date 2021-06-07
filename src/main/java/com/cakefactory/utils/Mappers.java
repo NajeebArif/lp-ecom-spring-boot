@@ -3,6 +3,8 @@ package com.cakefactory.utils;
 import com.cakefactory.model.dto.UserDto;
 import com.cakefactory.model.entity.Address;
 import com.cakefactory.model.entity.User;
+import com.cakefactory.model.entity.UserCredentials;
+import com.cakefactory.model.security.CustomUserDetails;
 
 public class Mappers {
 
@@ -35,5 +37,20 @@ public class Mappers {
         address.setCity(userDto.getCity());
         address.setPostcode(userDto.getPostCode());
         return address;
+    }
+
+    public static CustomUserDetails mapUserToCustomUserDetails(User user){
+        final UserCredentials userCredentials = new UserCredentials();
+        userCredentials.setUser(user);
+        userCredentials.setEnabled(true);
+        userCredentials.setEmail(user.getEmail());
+        final CustomUserDetails customUserDetails = new CustomUserDetails(userCredentials);
+        return customUserDetails;
+    }
+
+    public static User mapUserDetailsToUser(CustomUserDetails customUserDetails){
+        final User user = new User();
+        user.setEmail(customUserDetails.getUsername());
+        return user;
     }
 }
