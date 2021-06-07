@@ -47,12 +47,12 @@
 
                 {{^loggedInUser}}
                     <li class="nav-item">
-                        <a class="nav-link" href="/users/signup">
+                        <a class="nav-link" href="/users/signup" data-toggle="tooltip" data-placement="bottom" title="Register">
                             <i class="fas fa-user-plus"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/users/login">
+                        <a class="nav-link" href="/users/login" data-toggle="tooltip" data-placement="bottom" title="Login">
                             <i class="fas fa-sign-in-alt"></i>
                         </a>
                     </li>
@@ -69,12 +69,12 @@
                         </li>
                     {{/basketCapacity}}
                     <li class="nav-item">
-                        <a class="nav-link" href="/users">
+                        <a class="nav-link" href="/users" data-toggle="tooltip" data-placement="bottom" title="{{email}}">
                             <i class="fas fa-user-tie"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">
+                        <a class="nav-link" href="/logout" data-toggle="tooltip" data-placement="bottom" title="Logout">
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
                     </li>
