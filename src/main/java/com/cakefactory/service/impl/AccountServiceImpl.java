@@ -76,6 +76,15 @@ public class AccountServiceImpl implements AccountService, ApplicationListener<F
         return loggedInUser;
     }
 
+    @Override
+    public UserDto fetchCurrentUserInfo() {
+        if(loggedInUser!=null){
+            return userRepo.findByEmail(loggedInUser.getEmail()).map(Mappers::mapUserToUserDto).orElseThrow(RuntimeException::new);
+        }else {
+            throw new UnsupportedOperationException("User is not logged in yet.");
+        }
+    }
+
     private User getUser(UserDto userDto) {
         User user = mapUserDtoToUser(userDto);
         Address address = mapUserDtoToAddress(userDto);

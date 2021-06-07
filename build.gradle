@@ -53,6 +53,9 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+	/*PayPal SDK*/
+	implementation 'com.paypal.sdk:checkout-sdk:1.0.2'
+
 
 
 

@@ -13,4 +13,6 @@ public interface AccountService {
     void logout();
 
     UserDto fetchUserForEmail(String email);
+
+    UserDto fetchCurrentUserInfo();
 }

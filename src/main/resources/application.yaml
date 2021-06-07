@@ -1,3 +1,6 @@
+paypal:
+  clientId: AZ7ahR39k9cCddEn-hBid9cy3eP-N_vjlH1-jJHN2ZnS6zzCeyfU8Xnr1uMLm99Q1vRKGastczR-Z-Q6
+  clientSecret: EAxctIlTF5OVAO9Xc92YZr8MG10TANzQnBEJWwH492eQ-74XNyj3Nx-q2kLf-_vibJGGsXMwJTMqc7Ey
 
 spring:
   security:

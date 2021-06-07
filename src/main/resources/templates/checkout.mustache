@@ -1,0 +1,43 @@
+{{>header}}
+
+
+<div class="container d-flex flex-row justify-content-between">
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Item Name</th>
+                <th>Item Unit Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#orderDetails}}
+                {{#orderedItems}}
+                    <tr>
+                        <td scope="row">{{itemDto.title}}</td>
+                        <td>{{itemDto.price}}</td>
+                        <td>{{qty}}</td>
+                        <td>{{totalPrice}}</td>
+                    </tr>
+                {{/orderedItems}}
+            {{/orderDetails}}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3">Total Cost</td>
+                <td>{{totalCost}}</td>
+            </tr>
+            </tfoot>
+        </table>
+
+    <form action="/order" method="post">
+        <span>Pay via:<button class="btn btn-primary" type="submit">PayPal</button></span>
+    </form>
+
+</div>
+
+
+
+{{>footer}}
